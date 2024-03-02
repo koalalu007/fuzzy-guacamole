@@ -16,6 +16,11 @@ const morgan = require('morgan');
 
 // Create the Express app
 
+
+app.use(express.static('public'));
+app.set('view engine', 'ejs');
+app.use(morgan('dev'))
+app.use(express.urlencoded({ extended: true }));
 // Connect to MongoDB
 const server = app.listen(process.env.PORT, () => {
   console.log("Server listening");
@@ -31,11 +36,6 @@ const authMiddleware = basicAuth({
   challenge: true,
 });
 
-
-app.use(express.static('public'));
-app.set('view engine', 'ejs');
-app.use(morgan('dev'))
-app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   TaskModel.find({}).then((tasks) => {
@@ -63,10 +63,7 @@ app.get('/contact/', (req, res) => {
   res.render('contact.ejs');
 });
 
-// post contact form using contact_form.php
-app.post('/contact_form.php/', (req, res) => {
-  res.redirect('/contact_form.php');
-});
+
 
 
 
@@ -119,3 +116,6 @@ app.post('/tasks/:id/like', (req, res) => {
 module.exports = {
   mongoose,
 };
+
+
+server
