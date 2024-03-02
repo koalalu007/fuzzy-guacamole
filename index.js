@@ -1,5 +1,13 @@
 const express = require('express');
 const basicAuth = require('express-basic-auth');
+const path = require('path');
+
+const app = express();
+
+const favicon = require('serve-favicon');
+const faviconPath = path.join(__dirname, 'public', 'favicon.ico'); // Assuming it's in the public directory
+
+app.use(favicon(faviconPath));
 
 require('dotenv').config();
 const mongoose = require("mongoose");
@@ -7,7 +15,6 @@ const TaskModel = require('./models/TaskModel');
 const morgan = require('morgan');
 
 // Create the Express app
-const app = express();
 
 // Connect to MongoDB
 const server = app.listen(process.env.PORT, () => {
