@@ -117,5 +117,3 @@ module.exports = {
   mongoose,
 };
 
-
-server
